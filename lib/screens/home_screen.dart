@@ -114,7 +114,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const Spacer(),
               const Center(
-                child: Text('Desarrollo móvil integral · Flutter + Firebase',
+                child: Text('Desarrollado por Gabriel Flores agruello',
                     style: TextStyle(color: ClayColors.textSoft, fontSize: 12)),
               ),
             ],
