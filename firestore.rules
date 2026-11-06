@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Solo usuarios autenticados (anónimos incluidos) pueden usar "pacientes"
+    // y los datos deben tener los campos obligatorios con valores válidos.
+    match /pacientes/{id} {
+      allow read: if request.auth != null;
+      allow delete: if request.auth != null;
+      allow create: if request.auth != null
+        && request.resource.data.nombreMascota is string
+        && request.resource.data.nombreMascota.size() > 0
+        && request.resource.data.especie is string
+        && request.resource.data.raza is string
+        && request.resource.data.raza.size() > 0
+        && request.resource.data.edad is int
+        && request.resource.data.edad >= 0 && request.resource.data.edad <= 40
+        && request.resource.data.nombreDueno is string
+        && request.resource.data.nombreDueno.size() > 0
+        && request.resource.data.telefono is string
+        && request.resource.data.telefono.size() == 10
+        && request.resource.data.motivo is string
+        && request.resource.data.motivo.size() > 0;
+    }
+  }
+}
